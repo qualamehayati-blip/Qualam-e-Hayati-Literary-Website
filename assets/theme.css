@@ -1,0 +1,351 @@
+/* Qualam-e-Hayati — refined literary theme */
+
+:root {
+  --parchment: #f6f1e4;
+  --parchment-2: #efe7d3;
+  --ivory: #fbf7ec;
+  --charcoal: #1f2422;
+  --charcoal-2: #2c3330;
+  --ink: #14181a;
+  --forest: #2f5d4b;
+  --forest-2: #244a3c;
+  --gold: #b08b3f;
+  --gold-2: #c9a35a;
+  --rule: #d9cfb6;
+}
+
+html, body {
+  background-color: var(--parchment);
+  color: var(--charcoal);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-feature-settings: "liga" 1, "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.005em;
+}
+
+.font-serif-body {
+  font-family: 'Lora', Georgia, serif;
+}
+
+.font-mono-caps {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+/* Subtle parchment paper texture using layered radial gradients */
+.parchment-bg {
+  background-color: var(--parchment);
+  background-image: none;
+}
+
+.paper-card {
+  background: #fbf7ec;
+  border: 1px solid var(--rule);
+}
+
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+}
+
+.thin-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule) 20%, var(--rule) 80%, transparent);
+}
+
+/* Ornament */
+.ornament::before,
+.ornament::after {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  height: 1px;
+  background: var(--gold);
+  vertical-align: middle;
+  margin: 0 0.75rem;
+  opacity: 0.7;
+}
+
+/* Drop-cap for reading view */
+.drop-cap::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.9;
+  padding: 0.35rem 0.6rem 0 0;
+  color: var(--forest);
+  font-weight: 600;
+}
+
+/* Refined motion */
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes gentle-scale {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-fade-rise { animation: fade-rise 0.35s ease-out both; }
+.animate-fade-in   { animation: fade-in 0.4s ease-out both; }
+.animate-gentle    { animation: gentle-scale 0.45s ease-out both; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Link underline animation */
+.link-refined {
+  position: relative;
+  display: inline-block;
+}
+.link-refined::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.link-refined:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Card hover lift */
+.lit-card {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.lit-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(176,139,63,0.55);
+}
+
+/* Prose styling for reading view */
+.prose-lit p {
+  font-size: 1.125rem;
+  line-height: 1.9;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+}
+.prose-lit h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  color: var(--forest-2);
+  margin: 2.5rem 0 1rem;
+  font-weight: 600;
+}
+.prose-lit blockquote {
+  border-left: 2px solid var(--gold);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  font-style: italic;
+  color: var(--charcoal-2);
+  margin: 2rem 0;
+  font-size: 1.15rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reader tools: dark reading mode + font-size levels                  */
+/* ------------------------------------------------------------------ */
+
+/* Font-size levels applied via data-attribute on the article wrapper */
+[data-reader-font="sm"] .prose-lit p {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+[data-reader-font="md"] .prose-lit p {
+  font-size: 1.125rem;
+  line-height: 1.9;
+}
+[data-reader-font="lg"] .prose-lit p {
+  font-size: 1.28rem;
+  line-height: 2.05;
+}
+[data-reader-font="sm"] .drop-cap::first-letter { font-size: 3.75rem; }
+[data-reader-font="lg"] .drop-cap::first-letter { font-size: 5.25rem; }
+
+/* Dark reader mode — applied on the reading article container only.   */
+/* Preserves the site chrome (parchment) while turning the reading     */
+/* room to a warm ink-and-lamp palette.                                */
+.reader-dark {
+  background-color: #14181a;
+  background-image: none;
+  color: #e8e2d0;
+  border-radius: 2px;
+}
+.reader-dark .drop-cap::first-letter { color: #c9a35a; }
+.reader-dark .prose-lit p { color: #e0d9c4; }
+.reader-dark .prose-lit h2 { color: #c9a35a; }
+.reader-dark .prose-lit blockquote { color: #cfc6ad; border-left-color: #c9a35a; }
+.reader-dark .gold-rule { opacity: 0.55; }
+.reader-dark .thin-rule {
+  background: linear-gradient(90deg, transparent, rgba(217,207,182,0.35) 20%, rgba(217,207,182,0.35) 80%, transparent);
+}
+.reader-dark h1, .reader-dark .font-display { color: #f2ecd7; }
+.reader-dark p, .reader-dark span, .reader-dark a { color: #ded6bd; }
+.reader-dark .paper-card {
+  background: #1e2422;
+  border-color: #2f3733;
+}
+.reader-dark .paper-card h4 { color: #f2ecd7; }
+.reader-dark .paper-card:hover { border-color: rgba(201,163,90,0.55); }
+.reader-dark .link-refined::after { background: #c9a35a; }
+.reader-dark .reader-toolbar {
+  background: rgba(30,36,34,0.85) !important;
+  border-color: #2f3733 !important;
+  color: #ded6bd;
+}
+.reader-dark .reader-toolbar button { color: #ded6bd; }
+.reader-dark .reader-toolbar .bg-\[\#244a3c\] { background-color: #c9a35a !important; color: #14181a !important; }
+
+/* ------------------------------------------------------------------ */
+/* Markdown rendering for admin previews and article body             */
+/* ------------------------------------------------------------------ */
+.prose-markdown h1,
+.prose-markdown h2,
+.prose-markdown h3,
+.prose-markdown h4 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--forest-2);
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  line-height: 1.2;
+}
+.prose-markdown h1 { font-size: 2.4rem; }
+.prose-markdown h2 { font-size: 1.9rem; }
+.prose-markdown h3 { font-size: 1.5rem; }
+.prose-markdown h4 { font-size: 1.2rem; }
+.prose-markdown p {
+  font-size: 1.125rem;
+  line-height: 1.9;
+  color: var(--charcoal);
+  margin: 0 0 1.5rem;
+}
+.prose-markdown ul,
+.prose-markdown ol {
+  margin: 0 0 1.5rem 1.4rem;
+  color: var(--charcoal);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+.prose-markdown ul { list-style: disc; }
+.prose-markdown ol { list-style: decimal; }
+.prose-markdown li { margin-bottom: 0.35rem; }
+.prose-markdown li::marker { color: var(--gold); }
+.prose-markdown blockquote {
+  border-left: 2px solid var(--gold);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  font-style: italic;
+  color: var(--charcoal-2);
+  margin: 2rem 0;
+  font-size: 1.15rem;
+  font-family: 'Cormorant Garamond', serif;
+}
+.prose-markdown a {
+  color: var(--forest-2);
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.4s ease;
+}
+.prose-markdown a:hover { color: var(--gold); }
+.prose-markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  margin: 1.75rem 0;
+  display: block;
+}
+.prose-markdown code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  background: rgba(176,139,63,0.10);
+  color: #6b4d1a;
+  padding: 0.1em 0.4em;
+  border-radius: 2px;
+  border: 1px solid rgba(176,139,63,0.25);
+}
+.prose-markdown pre {
+  background: #1e2422;
+  color: #e8e2d0;
+  padding: 1.1rem 1.25rem;
+  border-radius: 2px;
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  border: 1px solid #2f3733;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.prose-markdown pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+}
+.prose-markdown hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule) 20%, var(--rule) 80%, transparent);
+  margin: 2.5rem 0;
+}
+.prose-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-family: 'Lora', serif;
+}
+.prose-markdown th, .prose-markdown td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+}
+.prose-markdown th {
+  color: var(--forest-2);
+  font-weight: 600;
+}
+
+/* Reader dark mode versions */
+.reader-dark .prose-markdown h1,
+.reader-dark .prose-markdown h2,
+.reader-dark .prose-markdown h3,
+.reader-dark .prose-markdown h4 { color: #c9a35a; }
+.reader-dark .prose-markdown p,
+.reader-dark .prose-markdown li { color: #e0d9c4; }
+.reader-dark .prose-markdown blockquote { color: #cfc6ad; border-left-color: #c9a35a; }
+.reader-dark .prose-markdown code {
+  background: rgba(201,163,90,0.15);
+  color: #e8c98a;
+  border-color: rgba(201,163,90,0.3);
+}
+.reader-dark .prose-markdown a { color: #c9a35a; border-bottom-color: #c9a35a; }
+
+/* Admin preview markdown — same styles at slightly tighter scale */
+.admin-markdown { font-size: 0.98rem; }
+.admin-markdown h2 { font-size: 1.6rem; }
+.admin-markdown h3 { font-size: 1.3rem; }
+.admin-markdown p { font-size: 1rem; line-height: 1.75; }
+
+/* line-clamp helpers */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

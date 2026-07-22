@@ -1,0 +1,23 @@
+name: admin_publish_and_reader_sees_update
+description: Verify that when an admin publishes a new piece, it immediately appears
+  in the public reader interface.
+steps:
+- Navigate to the admin login page at /admin/login
+- Sign in with username 'admin' and password 'hayati-admin'
+- Click 'New Piece' or navigate to /admin/publications/new
+- 'Fill in the publication form: title ''Test Article'', category ''Essays'', and
+  body text ''This is a test piece'''
+- Click 'Publish now' button
+- Verify a success toast appears confirming publication
+- Navigate to /publications to view the public archive
+- Search or scroll to find the 'Test Article' piece in the grid
+- Click on the published piece to open the reading view
+- Verify the title, category, and body text match what was entered in the admin form
+expected_outcome: The newly published piece appears in the public publications page
+  and can be read in the reader view with all entered metadata and content displayed
+  correctly.
+routes:
+- admin/login
+- admin/publications/new
+- publications
+- read/test-article
